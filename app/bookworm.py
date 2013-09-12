@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, session, request, redirect, jsonify, url_for
 import urllib2
 import plistlib
@@ -6,10 +7,8 @@ import oauth2 as oauth
 import urlparse
 from xml.dom.minidom import parseString
 import math
-import os
 
 app = Flask(__name__)
-# app.secret_key = keys.secret_key
 app.secret_key = os.environ['secret_key']
 
 
@@ -20,9 +19,7 @@ ACCESS_TOKEN_URL = '%s/oauth/access_token' % BASE_URL
 API_KEY = "key=" + os.environ['api_key']
 API_KEY_SHORT = os.environ['api_key']
 API_SECRET_KEY = os.environ['api_secret_key']
-# API_KEY = "key=" + keys.api_key
-# API_KEY_SHORT = keys.api_key
-# API_SECRET_KEY = keys.api_secret_key
+
 
 #Upon accessing the index page, run a check to see if the user has already given authorization.
 @app.route('/')
