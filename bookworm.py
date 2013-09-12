@@ -199,4 +199,4 @@ def get_events(oauth_token, zip, total_friends_authors, friends):
 
 if __name__ == "__main__":
   app.config['STATIC_FOLDER'] = 'static'
-  app.run(debug = True)
+  app.run(debug = False)
