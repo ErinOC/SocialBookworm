@@ -70,7 +70,7 @@
     };
 
    function fetchUserData(zip) {
-   		var address = "http://tranquil-hollows-6836.herokuapp.com/fetch/" + zip;
+   		var address = {{ url_for('fetch') }} + zip;
    		var results = jQuery.get(address, function() {})
 	   		.fail(function() { alert("error"); })
 			.done(function() { 
