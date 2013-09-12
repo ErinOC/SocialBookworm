@@ -71,6 +71,7 @@
 
    function fetchUserData(zip) {
    		var address = {{ url_for('fetch') }} + zip;
+      alert(address);
    		var results = jQuery.get(address, function() {})
 	   		.fail(function() { alert("error"); })
 			.done(function() { 
