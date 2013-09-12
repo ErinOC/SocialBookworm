@@ -6,7 +6,6 @@ import oauth2 as oauth
 import urlparse
 from xml.dom.minidom import parseString
 import math
-import keys
 import os
 
 app = Flask(__name__)
