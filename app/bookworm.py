@@ -7,7 +7,6 @@ import oauth2 as oauth
 import urlparse
 from xml.dom.minidom import parseString
 import math
-import keys #REMOVE BEFORE DEPLOYING AND SWITCH 
 
 app = Flask(__name__)
 app.secret_key = os.environ['secret_key']
