@@ -1,29 +1,48 @@
 <html>
 <head>
+<!--     Bootstrap for responsive grid -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename='js/bootstrap.min.css') }}"media="screen">
+<!-- Jquery, Spinner, and overrides -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type= "text/javascript" src="{{ url_for('static', filename='js/spin.min.js') }}"></script>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" media="screen">
-	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>The Social Bookworm</title>
 </head>
 <body>
-  <!-- <div id="top">
-  </div>
-  <div id="top_circle"><h3 class="header_image">[logo goes here]</h3>
-  </div> -->
+<div class="container">  
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="content"><img class="logo" src = "{{ url_for('static', filename='img/worm1.png') }}"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="content clearfix">
+                <h1>Being a bookworm can get lonely.</h1>
+                <h3 id="description">The Social Bookworm suggests author appearances, book signings, and book clubs to attend with friends.</h3>
+            </div>
+       </div>
+    </div>
 
-  <div id = "container">
-    <h3>Search for Literary Events</h3>
-    <!-- Need to pass user's info into the jQuery function -->
-    <form id="user-input">
-    <!--    Goodreads ID: <input type="text" name="id"><br> -->
-        <label>Zip Code:</label>
-        <input type="text" id="zipcode"><br>
-        <button id="go">Find events near you!</button>
-    </form> 
-    <div id="warnings"></div>
-    <div id="spinner"></div>
-    <div class="display"></div>
-  </div>
-</body>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="content clearfix">
+              <h3>Search for Events</h3>
+              <!-- Need to pass user's info into the jQuery function -->
+              <form id="user-input">
+              <!--    Goodreads ID: <input type="text" name="id"><br> -->
+                  <label>Zip Code:</label>
+                  <input type="text" id="zipcode"><br>
+                  <button id="go">Find events near you!</button>
+              </form> 
+              <div id="warnings"></div>
+              <div id="spinner"></div>
+              <div class="display"></div>
+            </div>
+        </div>
+    </div>
+
 
 <script>
 // Spinner from http://fgnass.github.io/spin.js/

@@ -1,33 +1,122 @@
-#container {
-    width: 600px;
+/*Super-messy; need to clean it up.*/
+
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
+.logo {
+    display: block;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px 10px 10px 10px;
-    background-color: #fafaef;
-    box-shadow-left: 15px 15px black;
-    box-shadow-right: 15px 15px black;
-    border-radius: 10px;
-}
-
-.header_image{
-
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
 }
 
 body {
-    font-family: "Helvetica", "Arial", sans-serif;
-    background-color: #3c3c41;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: #3D4746;
     font-size: 14px;
 }
 
-p {
-    font-family: "Helvetica", "Arial", sans-serif;
+.head {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: #fcf7f1;
+    margin: 0em 1em;
 }
+
+.content {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: #fcf7f1;
+    padding: 0em 2em;
+    margin: 0em 1em;
+}
+
+h1, h2 {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #B7626A;
+}
+
+h3 {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.5em;
+    font-color: #B7626A;
+}
+
+a {
+    color: #7BAFAF;
+}
+
+.small{
+    font-size: .8em
+}
+
 
 #spinner{
     height: 150px;
     margin: 150px;
 }
 
-.small{
-    font-size: .8em
+.description {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+/*
+Code for ribbon banner*/
+.ribbon {
+ font-size: 16px !important;
+ /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
+ width: 100%;
+ position: relative;
+ background: #89CACD;
+ color: #fff;
+ text-align: center;
+ padding: 1.5em 2em; /* Adjust to suit */
+ margin: 0em auto 0em; /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
+
+}
+
+/*Adds boxes slightly below the edges of the ribbon on each side.*/
+.ribbon:before, .ribbon:after {
+ content: "";
+ position: absolute;
+ display: block;
+ bottom: -1em;
+ border: 1.5em solid #7BAFAF;
+ z-index: -5;
+}
+
+/*These make the triangle cutout*/
+.ribbon:before {
+ left: -2em;
+ border-right-width: 1.5em;
+ border-left-color: transparent;
+}
+.ribbon:after {
+ right: -2em;
+ border-left-width: 1.5em;
+ border-right-color: transparent;
+}
+
+/*Creates a small div for the underside/shadow part of the ribbon.*/
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+ content: "";
+ position: absolute;
+ display: block;
+ border-style: solid;
+ border-color: #437777 transparent transparent transparent;
+ bottom: -1em;
+}
+
+
+.ribbon .ribbon-content:before {
+ left: 0;
+ border-width: 1em 0 0 1em;
+}
+.ribbon .ribbon-content:after {
+ right: 0;
+ border-width: 1em 1em 0 0;
 }
