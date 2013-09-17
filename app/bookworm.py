@@ -7,10 +7,11 @@ import oauth2 as oauth
 import urlparse
 from xml.dom.minidom import parseString
 import math
+import keys #REMOVE BEFORE DEPLOYING AND SWITCH 
 
 app = Flask(__name__)
 app.secret_key = os.environ['secret_key']
-
+# app.secret_key = keys.secret_key
 
 BASE_URL = "http://www.goodreads.com"
 AUTHORIZE_URL = '%s/oauth/authorize' % BASE_URL
@@ -19,6 +20,9 @@ ACCESS_TOKEN_URL = '%s/oauth/access_token' % BASE_URL
 API_KEY = "key=" + os.environ['api_key']
 API_KEY_SHORT = os.environ['api_key']
 API_SECRET_KEY = os.environ['api_secret_key']
+# API_KEY = "key=" + keys.api_key
+# API_KEY_SHORT = keys.api_key
+# API_SECRET_KEY = keys.api_secret_key
 
 
 #Upon accessing the index page, run a check to see if the user has already given authorization.
@@ -47,6 +51,7 @@ def request_oauth():
 #After the user has authorized, Goodreads will generate another token and redirect back to this route.
 @app.route('/access')
 def get_access():
+	print "running access"
 	oauth_token = request.args['oauth_token']
 	if not oauth_token == session['request_token']:
 		raise Exception("request tokens do not match.\nsession: %s\noauth response: %s\n")
