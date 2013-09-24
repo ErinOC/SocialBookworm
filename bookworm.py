@@ -32,10 +32,12 @@ def index():
 def request_oauth():
 	client = setup_oauth()
 	#Get a request token which will later be paired with the user token.
-	return "hi"
+	print "request token url", REQUEST_TOKEN_URL
 	response, content = client.request(REQUEST_TOKEN_URL, 'GET')
+	print "content", content
     #Fetch the token and parse it. 
-	request_token = dict(urlparse.parse_qsl(content))
+	request_token = dict(urlparse.parse_qsl(content)) #this is coming up empty.
+	print "request_token", request_token
 	session['request_token'] = request_token['oauth_token']
 	session['request_token_secret'] = request_token['oauth_token_secret']
 	#Create a Goodreads link containing the request token.
@@ -89,8 +91,8 @@ def goodreads(zip):
 	return events
 
 def setup_oauth(token=None):
-	consumer = oauth.Consumer(key= api_key(),
-                          	  secret= api_secret_key())
+	consumer = oauth.Consumer(key= API_KEY_SHORT,
+                          	  secret= API_SECRET_KEY)
 	return oauth.Client(consumer, token)
 
 def fetch_access_token_with_request_token(request_token):
@@ -199,4 +201,9 @@ def get_events(oauth_token, zip, total_friends_authors, friends):
 
 if __name__ == "__main__":
   app.config['STATIC_FOLDER'] = 'static'
-  app.run(debug = False)
+  # Set environment variable in Heroku; if that key doesn't exist, it means
+  # I'm running locally and can use debug=True
+  if os.environ.has_key('debug_status'):
+  	app.run(debug = False)
+  else:
+  	app.run(debug = True)
