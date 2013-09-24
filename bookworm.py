@@ -111,7 +111,7 @@ def get_friends_info(oauth_token, user):
 	response, content = client.request('http://www.goodreads.com/friend/user/%s?format=xml' % user,
 	                                   'GET')
 	if response['status'] != '200':
-	    raise Exception('Did not work for friends ids')
+	    return render_template("error.html")
 	else:
 	    print "Got the info!"  
 	friend_list = parseString(content).getElementsByTagName("user")
@@ -127,6 +127,10 @@ def get_friends_info(oauth_token, user):
 def get_friends_shelves(oauth_token, friends):
 	client = setup_oauth(token = oauth_token)
 	total_friends_authors = []
+	if response['status'] != '200':
+	    return render_template("error.html")
+	else:
+	    print "Got the info!" 
 	for friend in friends:  
 		friend_id = friend["friend_id"]
 		response, content = client.request('http://www.goodreads.com/review/list/%s.xml?%s&v=2&sort=isbn13&per_page=200' % (friend_id, API_KEY),
@@ -156,7 +160,6 @@ def get_friends_shelves(oauth_token, friends):
 				author_set.append(author_id)
 			page += 1
 			print "RUNNING AGAIN!"
-
 		total_friends_authors.append(author_set)
 		# print "author set", author_set
 	return total_friends_authors
