@@ -1,73 +1,155 @@
-/*Super-messy; need to clean it up.*/
 
-/* apply a natural box layout model to all elements */
+/* Apply a natural box layout model to all elements. */
 *, *:before, *:after {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
  }
 
-.logo {
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 14px;
+    background-image: url("../img/bg5.png")
+}
+
+/*Header and bookworm logo*/
+
+#logo {
     display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0px;
+    margin-top: 5px;
     margin-bottom: 0px;
-    padding: 0px;
-}
-
-body {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-color: #3D4746;
-    font-size: 14px;
+    padding: 0%;
+    z-index: 99;
 }
 
 .head {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-color: #fcf7f1;
+    font-family: "Arial", sans-serif;
+    background-color: #fdfcfa;
     margin: 0em 1em;
+    margin-top: 1em;
+    height: 100px;
+    border-left: 4px #7BAFAF solid;
+    border-right: 4px #7BAFAF solid;
+    border-top: 4px #7BAFAF solid;
+}
+
+.top-margin {
+    margin-top: 140px;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #7C7276;
+}
+
+/*Intro page */
+
+#title {
+    color: #7BAFAF;
+}
+
+#description {
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .content {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-color: #fcf7f1;
+    font-family: "Arial", sans-serif;
+    background-color: #fdfcfa;
     padding: 0em 2em;
     margin: 0em 1em;
+    border-left: 4px #7BAFAF solid;
+    border-right: 4px #7BAFAF solid;
 }
 
-h1, h2 {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    color: #B7626A;
+.info {
+    margin-top: 1.5em;
+    margin-left: 0em;
+    padding-left: 0px;
+    padding-bottom: 2em;
 }
 
-h3 {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 1.5em;
-    font-color: #B7626A;
-}
-
-a {
+.content a {
     color: #7BAFAF;
+}
+
+/*Elements AJAX-ed in search page*/
+
+/*Change the color of the search field outline*/
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: rgba(147, 138, 140, 1);
+    border: 1px solid;
+    box-shadow: 0 1px 1px rgba(237, 162, 171, .04) inset, 0 0 8px rgba(237, 162, 171, .8);
+    outline: 0 none;
+}
+
+#warnings {
+    color: #D65861;
+}
+
+.no-results {
+    margin-top: 1em;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+
+.result {
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.result:nth-child(odd) {
+    background-color: #eeece8;
+}
+
+.avatar {
+    border: 2px solid #3E5251;
 }
 
 .small{
     font-size: .8em
 }
 
-
 #spinner{
     height: 150px;
-    margin: 150px;
 }
 
-.description {
-    margin-top: 0%;
-    margin-bottom: 0%;
+/*Footer */
+
+.footer {
+    text-align: center;
+    font-family: "Arial", sans-serif;
+    font-size: .8em;
+    background-color: #7BAFAF;
+    padding: .5em 2em;
+    margin: 0em 1.3em;
+    border-left: 4px #7BAFAF solid;
+    border-right: 4px #7BAFAF solid;
+    font-color: black;
 }
+
+.footer a:link {
+    color: #464445;
+}
+
+.footer a:hover {
+    color: black;
+}
+
+.footer a:active {
+    color: #464445;
+}
+
+.footer a:visited {
+    color: #464445;
+}
+
 
 /*
 Code for ribbon banner*/
 .ribbon {
- font-size: 16px !important;
+ font-size: 22px !important;
  /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
  width: 100%;
  position: relative;
@@ -84,8 +166,8 @@ Code for ribbon banner*/
  content: "";
  position: absolute;
  display: block;
- bottom: -1em;
- border: 1.5em solid #7BAFAF;
+ bottom: -.6em;
+ border: 1.5em solid #578787;
  z-index: -5;
 }
 
@@ -107,10 +189,9 @@ Code for ribbon banner*/
  position: absolute;
  display: block;
  border-style: solid;
- border-color: #437777 transparent transparent transparent;
+ border-color: #2f5a5a transparent transparent transparent;
  bottom: -1em;
 }
-
 
 .ribbon .ribbon-content:before {
  left: 0;
@@ -120,3 +201,45 @@ Code for ribbon banner*/
  right: 0;
  border-width: 1em 1em 0 0;
 }
+
+button {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #eda2ab), color-stop(1, #e38d98) );
+    background:-moz-linear-gradient( center top, #eda2ab 5%, #e38d98 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eda2ab', endColorstr='#e38d98');
+    background-color:#eda2ab;
+    -webkit-border-top-left-radius:0px;
+    -moz-border-radius-topleft:0px;
+    border-top-left-radius:0px;
+    -webkit-border-top-right-radius:0px;
+    -moz-border-radius-topright:0px;
+    border-top-right-radius:0px;
+    -webkit-border-bottom-right-radius:0px;
+    -moz-border-radius-bottomright:0px;
+    border-bottom-right-radius:0px;
+    -webkit-border-bottom-left-radius:0px;
+    -moz-border-radius-bottomleft:0px;
+    border-bottom-left-radius:0px;
+    text-indent:0;
+    border:1px solid #6b6a6a;
+    display:inline-block;
+    color:#050505;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:normal;
+    font-style:normal;
+    height:26px;
+    width:65px;
+    text-decoration:none;
+    text-align:center;
+    margin-left: 5px;
+}
+
+button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e38d98), color-stop(1, #eda2ab) );
+    background:-moz-linear-gradient( center top, #e38d98 5%, #eda2ab 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e38d98', endColorstr='#eda2ab');
+    background-color:#e38d98;
+}button:active {
+    position:relative;
+    top:1px;
+

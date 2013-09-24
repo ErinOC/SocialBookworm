@@ -10,7 +10,6 @@ import math
 
 app = Flask(__name__)
 app.secret_key = os.environ['secret_key']
-# app.secret_key = keys.secret_key
 
 BASE_URL = "http://www.goodreads.com"
 AUTHORIZE_URL = '%s/oauth/authorize' % BASE_URL
@@ -19,19 +18,15 @@ ACCESS_TOKEN_URL = '%s/oauth/access_token' % BASE_URL
 API_KEY = "key=" + os.environ['api_key']
 API_KEY_SHORT = os.environ['api_key']
 API_SECRET_KEY = os.environ['api_secret_key']
-# API_KEY = "key=" + keys.api_key
-# API_KEY_SHORT = keys.api_key
-# API_SECRET_KEY = keys.api_secret_key
-
 
 #Upon accessing the index page, run a check to see if the user has already given authorization.
 @app.route('/')
 def index():
 	if not session.has_key('access_token') and not session.has_key('access_token_secret'):
 		return redirect('/request_oauth')
-	else:
-		return render_template("search.html")
-
+	else: 
+		return redirect('/get_goodreads_id')
+ 
 #If the user needs to give authorization, request a request token and create a link to Goodreads.
 @app.route('/request_oauth')
 def request_oauth():
@@ -50,7 +45,6 @@ def request_oauth():
 #After the user has authorized, Goodreads will generate another token and redirect back to this route.
 @app.route('/access')
 def get_access():
-	print "running access"
 	oauth_token = request.args['oauth_token']
 	if not oauth_token == session['request_token']:
 		raise Exception("request tokens do not match.\nsession: %s\noauth response: %s\n")
@@ -61,21 +55,41 @@ def get_access():
  	session['access_token_secret'] = access_token.secret
  	return redirect('/')
 
-@app.route('/fetch/<string:zip>/')
-def fetch(zip):
+@app.route('/get_goodreads_id')
+def get_goodreads_id():
+	access = session['access_token']
+	secret = session['access_token_secret']
+	token = oauth.Token(access, secret)
+	client = setup_oauth(token)
+	response, content = client.request('%s/api/auth_user' % "http://www.goodreads.com",
+	                                   'GET')
+	if response['status'] != '200':
+		return render_template("error.html")
+	    # raise Exception('Did not work')
+	else:
+	    print "Got the info!" 
+	user = str(parseString(content).getElementsByTagName("GoodreadsResponse")[0].childNodes[3].getAttribute("id"))
+	user_name = str(parseString(content).getElementsByTagName("name")[0].firstChild.nodeValue)
+	session['user_name'] = user_name 
+	session['user'] = user 
+	print user_name, user
+	return render_template("search.html", name=user_name)
+
+@app.route('/goodreads/<string:zip>')
+def goodreads(zip):
 	print "running fetch route"
 	access = session['access_token']
 	secret = session['access_token_secret']
 	token = oauth.Token(access, secret)
-	session['user'] = get_goodreads_id(token)
-	session['friends'] = get_friends_info(token, session['user'])
+	user = session['user']
+	session['friends'] = get_friends_info(token, user)
 	session['friends_authors'] = get_friends_shelves(token, session['friends'])  #returns total friends authors
 	events = get_events(token, zip, session['friends_authors'], session['friends'])
 	return events
 
 def setup_oauth(token=None):
-	consumer = oauth.Consumer(key= API_KEY_SHORT,
-                          	  secret= API_SECRET_KEY)
+	consumer = oauth.Consumer(key= keys.api_key(),
+                          	  secret= keys.api_secret_key())
 	return oauth.Client(consumer, token)
 
 def fetch_access_token_with_request_token(request_token):
@@ -87,18 +101,6 @@ def fetch_access_token_with_request_token(request_token):
 	user_token = oauth.Token(access_token['oauth_token'],
 	                    	 access_token['oauth_token_secret'])
 	return user_token
-
-
-def get_goodreads_id(oauth_token):
-	client = setup_oauth(token = oauth_token)
-	response, content = client.request('%s/api/auth_user' % "http://www.goodreads.com",
-	                                   'GET')
-	if response['status'] != '200':
-	    raise Exception('Did not work')
-	else:
-	    print "Got the info!"   
-	user = str(parseString(content).getElementsByTagName("GoodreadsResponse")[0].childNodes[3].getAttribute("id"))
-	return user
 
 def get_friends_info(oauth_token, user):
 	friends = []
@@ -126,13 +128,11 @@ def get_friends_shelves(oauth_token, friends):
 		friend_id = friend["friend_id"]
 		response, content = client.request('http://www.goodreads.com/review/list/%s.xml?%s&v=2&sort=isbn13&per_page=200' % (friend_id, API_KEY),
 		                                   'GET')
-		print content
 		total_books = int(parseString(content).getElementsByTagName("GoodreadsResponse")[0].childNodes[3].getAttribute("total"))
 		end_listing = int(parseString(content).getElementsByTagName("GoodreadsResponse")[0].childNodes[3].getAttribute("end"))
 		page = 1
 		#Keep making paginated calls until entire shelf is found.
 		author_set = []
-		print total_books, end_listing
 		#If it's not necessary to page through the user's shelves, then just add all the authors on this page.
 		if end_listing == total_books:
 			response, content = client.request('http://www.goodreads.com/review/list/%s.xml?%s&v=2&sort=isbn13&per_page=200&page=%i' % (friend_id, API_KEY, page),
@@ -155,16 +155,15 @@ def get_friends_shelves(oauth_token, friends):
 			print "RUNNING AGAIN!"
 
 		total_friends_authors.append(author_set)
-		print "author set", author_set
+		# print "author set", author_set
 	return total_friends_authors
 
 def get_events(oauth_token, zip, total_friends_authors, friends):
 	client = setup_oauth(token = oauth_token)
 	response, content = client.request("http://www.goodreads.com/event.xml?%s&search[postal_code]=%s" % (API_KEY, zip),
 	                                   'GET')
-	print content
 	author_events = parseString(content).getElementsByTagName("event")
-	print author_events
+	# print author_events
 	event_json = {}
 	match_tally = 0
 	for i in range(len(author_events)):

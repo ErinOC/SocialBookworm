@@ -3,9 +3,11 @@
 <!--     Bootstrap for responsive grid -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename='js/bootstrap.min.css') }}"media="screen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" media="screen">
+
     <title>The Social Bookworm</title>
 </head>
 <body>
@@ -14,13 +16,13 @@
 <div class="container">  
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="head"><img class="logo" src = "{{ url_for('static', filename='img/worm1.png') }}"></div>
+        <div class="col-md-10 .col-xs-12 col-md-offset-1">
+            <div class="head"><a href= "{{ url_for('request_oauth') }}"> <img id="logo" src = "{{ url_for('static', filename='img/worm1.png') }}"></div></a>
         </div>
     </div>
 
     <div class="row">  
-      <div class="col-md-10 col-md-offset-1">
+      <div class="col-md-10 .col-xs-12 col-md-offset-1">
            <div class="ribbon">
                 <div class="ribbon-content"></div>
             </div>
@@ -28,35 +30,44 @@
     </div>
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-10 .col-xs-12 col-md-offset-1">
             <div class="content clearfix">
-                <h1>Being a bookworm can get lonely.</h1>
-                <h3 id="description">The Social Bookworm suggests author appearances, book signings, and book clubs to attend with friends.</h3>
+                <h1 class="top-margin" id="title">Being a bookworm can get lonely.</h1>
+                <h4 id="description">The Social Bookworm suggests author appearances, book signings, and book clubs to attend with friends.</h4>
             </div>
        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-10 .col-xs-12 col-md-offset-1">
             <div class="content clearfix">
-                <div class="col-md-8">
-                    <h2>How it Works:</h2>
+                <div class="col-md-8 .col-xs-12 info">
+                    <h3>How it Works:</h3>
                     <p>1. The worms burrow through your friends’ Goodreads shelves, finding the authors that your friends have read or wish to read. </p>
                     </p>2. If there are events related to these authors in your area*, the worms will let you know. 
                     <p>3. If you’re also interested in an event, you can get the party started!</p>
                     <p class="small">*The Social Bookworm currently works only for events in the United States.</p>
                 </div>
-                <div class="col-md-4">
-                    <h2>Get Started:</h2>
-                    <h4><a href= "{{ auth }}" >Authorize SocialBookworm</a> to access your Goodreads data.</a></h4>
-                    <p class="small">SocialBookworm does not store any of your personal Goodreads data.</p>
+                <div class="col-md-4 .col-xs-12 info">
+                    <h3>Get Started:</h3>
+                    <h4><a href= "{{ auth }}" >Authorize The Social Bookworm</a> to access your Goodreads data.</a></h4>
+                    <p class="small">This application does not store any of your personal Goodreads data.</p>
                 </div>
             </div>
        </div>
     </div>
-</div>
 
-  <!--       <p class="small">Powered by (but unffiliated with) <a href="http://www.goodreads.com">Goodreads.</a></p>
-    </footer> --> -->
+       <div class="row">
+        <div class="col-md-10 .col-xs-12 col-md-offset-1">
+            <div class="footer">
+                Developed by <a href= "mailto:erin_oconnell@outlook.com">Erin O'Connell.</a>&nbsp; &nbsp; Powered by (but unffiliated with) <a href="http://www.goodreads.com">Goodreads.</a>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+    
 <body>
 </html>

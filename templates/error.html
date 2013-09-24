@@ -3,7 +3,7 @@
 <!--     Bootstrap for responsive grid -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename='js/bootstrap.min.css') }}"media="screen">
-<!-- Jquery, Spinner, search functionality, and overrides -->
+<!-- Jquery, Spinner, and overrides -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type= "text/javascript" src="{{ url_for('static', filename='js/spin.min.js') }}"></script>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" media="screen">
@@ -28,18 +28,9 @@
     <div class="row">
         <div class="col-md-10 .col-xs-12 col-md-offset-1">
             <div class="content clearfix">
-              <div class="top-margin">
-                <h1>Welcome, {{ name }}! </h1>
-                <h3>Search for events near you:</h3>
-                <form id="user-input">
-                  <label>Enter your zip code:</label>
-                  <input type="text" id="zipcode"> 
-                  <button id="go">Search</button>
-                </form> 
-                <div id="warnings"></div>
-                <div id="spinner"></div>
-                <div class="display"></div>
-                <div class="no-results"></div>
+              <div class="top-margin no-results">
+                <h1>Oh no!</h1>
+                <h4>My apologies: something went awry. If you want, <a href= "mailto:erin_oconnell@outlook.com">email me</a> to report bugs.</h4>
               </div>
             </div>
           </div>
@@ -52,5 +43,3 @@
             </div>
     </div>
 </div>
-<script type= "text/javascript" src="{{ url_for('static', filename='js/bookworm.js') }}"></script>
-</html>
