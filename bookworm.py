@@ -31,12 +31,16 @@ def index():
 @app.route('/request_oauth')
 def request_oauth():
 	client = setup_oauth()
+	print "a"
 	#Get a request token which will later be paired with the user token.
 	response, content = client.request(REQUEST_TOKEN_URL, 'GET')
+	print "b"
     #Fetch the token and parse it. 
 	request_token = dict(urlparse.parse_qsl(content))
 	session['request_token'] = request_token['oauth_token']
+	print "c"
 	session['request_token_secret'] = request_token['oauth_token_secret']
+	print "d"
 	#Create a Goodreads link containing the request token.
 	authorize_link = '%s?oauth_token=%s' % (AUTHORIZE_URL,
 	                                        request_token['oauth_token'])
