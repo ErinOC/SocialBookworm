@@ -132,7 +132,7 @@ def get_friends_shelves(oauth_token, friends):
 	client = setup_oauth(token = oauth_token)
 	for friend in friends:  
 		friend_id = friend["friend_id"]
-		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=100' % (friend_id, API_KEY),
+		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=150' % (friend_id, API_KEY),
 		                                   'GET')
 		author_set = []
 		#If it's not necessary to page through the user's shelves, then just add all the authors on this page.
