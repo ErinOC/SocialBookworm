@@ -29,8 +29,7 @@
         $("#warnings").html("Please enter a valid five-digit zip code.");
       } else {
         $("h1").hide();
-        $("h3").html("Please wait: the Social Bookworm is burrowing through your friends' bookshelves.");
-        $("top-margin").append("<h4>If you have a lot of friends with huge bookshelves, this might take awhile.</h4>");
+        $("h4").html("Please wait: the Social Bookworm is burrowing through your friends' bookshelves.");
         $("#warnings").hide();
         $("#user-input").hide();  
         var spinner = new Spinner(opts).spin(document.getElementById('spinner'));
@@ -39,14 +38,14 @@
    });
 
     function changeText(image, friend, title, date, link, venue, city, address) {
-        $("h3").html("Your results:");
+        $("h4").html("Your results:");
         var changeable = $(".display")[0];
-        var myText = "<img class='avatar' src='" + image + "'> Your friend <b>" + friend + "</b> might be interested in attending: <h4><a href = '" + link + "'>" + title + "</a></h4><h5>" + date + "</h5>" + "<p>" + venue + "<br>" + address + "<br>" + city + "</p>";
+        var myText = "<img class='avatar' src='" + image + "'> Your friend <b>" + friend + "</b> might be interested in attending: <h4 class='event-title'><a href = '" + link + "'>" + title + "</a></h4><h5>" + date + "</h5>" + "<p>" + venue + "<br>" + address + "<br>" + city + "</p>";
         $(changeable).append("<div class='result'>" + myText + "</div>");
     };
 
     function noResults() {
-        $("h3").html("Your results:");
+        $("h4").html("Your results:");
         var changeable = $(".no-results");
         var myText = "Unfortunately, the worms did not find any event matches. Please check back next month!"
         $(changeable).append("<div class='.no-results'>" + myText + "</div>");
@@ -55,16 +54,16 @@
    function fetchUserData(zip) {
       var address = "/goodreads/" + zip;
       var results = jQuery.get(address, function() {})
-        .fail(function() { alert("error"); })
-      .done(function() { 
-        console.log("success!");
-        $("#user-input").hide();
-        $("#spinner").hide();
-        data = results.responseText;
-        if (data == "No results found.") {
-          console.log("nada");
-          noResults();
-          return "None";
+        .fail(function() { console.log("error"); })
+        .done(function() { 
+          console.log("success!");
+          $("#user-input").hide();
+          $("#spinner").hide();
+          data = results.responseText;
+          if (data == "No results found.") {
+            console.log("nada");
+            noResults();
+            return "None";
         }
         jsonData = JSON.parse(data);
         for (item in jsonData) {
