@@ -80,7 +80,6 @@ def get_preliminary_goodreads_data():
 	session['user_name'] = user_name 
 	session['user'] = user 
 	session['friends'] = get_friends_info(token, user)
-	session['friends_authors'] = get_friends_shelves(token, session['friends'])  #returns total friends authors
 	return render_template("search.html", name=user_name)
 
 @app.route('/goodreads/<string:zip>')
@@ -91,6 +90,7 @@ def goodreads(zip):
 	token = oauth.Token(access, secret)
 	user = session['user']
 	friends = session['friends']
+	session['friends_authors'] = get_friends_shelves(token, session['friends'])  #returns total friends authors
 	events = get_events(token, zip, session['friends_authors'], friends)
 	print events
 	return events
@@ -132,7 +132,7 @@ def get_friends_shelves(oauth_token, friends):
 	client = setup_oauth(token = oauth_token)
 	for friend in friends:  
 		friend_id = friend["friend_id"]
-		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=200' % (friend_id, API_KEY),
+		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=100' % (friend_id, API_KEY),
 		                                   'GET')
 		author_set = []
 		#If it's not necessary to page through the user's shelves, then just add all the authors on this page.
@@ -142,7 +142,6 @@ def get_friends_shelves(oauth_token, friends):
 			author_set.append(author_id)
 		print author_set
 		total_friends_authors.append(author_set)
-	print "TOTAL FRIENDS AUTHORS", total_friends_authors
 	return total_friends_authors
 
 def get_events(oauth_token, zip, total_friends_authors, friends):
