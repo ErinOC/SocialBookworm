@@ -11,7 +11,7 @@
     color: '#7e7377', // #rgb or #rrggbb or array of colors
     speed: 0.9, // Rounds per second
     trail: 72, // Afterglow percentage
-    shadow: true, // Whether to render a shadow
+    shadow: false, // Whether to render a shadow
     hwaccel: false, // Whether to use hardware acceleration
     className: 'spinner', // The CSS class to assign to the spinner
     zIndex: 2e9, // The z-index (defaults to 2000000000)
