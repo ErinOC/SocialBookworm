@@ -38,7 +38,7 @@ body {
     margin-top: 140px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, #results {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     color: #7C7276;
 }
@@ -77,12 +77,25 @@ h1, h2, h3, h4 {
 /*Elements AJAX-ed in search page*/
 
 /*Change the color of the search field outline*/
-textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+textarea:focus, 
+input:focus, 
+input[type]:focus, 
+.uneditable-input:focus {   
     border-color: rgba(147, 138, 140, 1);
     border: 1px solid;
     box-shadow: 0 1px 1px rgba(237, 162, 171, .04) inset, 0 0 8px rgba(237, 162, 171, .8);
     outline: 0 none;
 }
+
+form {
+    margin-top: 1em;
+}
+
+input, select {
+    color: #7C7276;;
+}
+
+
 
 #warnings {
     color: #D65861;
@@ -227,7 +240,7 @@ button {
     font-size:15px;
     font-weight:normal;
     font-style:normal;
-    height:26px;
+    height:27px;
     width:65px;
     text-decoration:none;
     text-align:center;

@@ -19,6 +19,22 @@
     left: 'auto' // Left position relative to parent in px
   };
 
+  $('[placeholder]').focus(function() {
+    var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+        input.val('');
+        input.removeClass('placeholder');
+        };
+    // The blur method is applied to an element when it's no longer the focus.
+    }).blur(function() {  
+      var input = $(this);
+      if (input.val() == '' || input.val() == input.attr('placeholder')) {
+        // Returns the placeholder when the field is emptied.
+        input.addClass('placeholder');
+        input.val(input.attr('placeholder'));
+      }
+    }).blur();
+
 //Upon the user clicking the submit button, get the values that the user entered.   
    $("#user-input").submit(function(event){
         //Prevent the page from reloading.
@@ -29,7 +45,7 @@
         $("#warnings").html("Please enter a valid five-digit zip code.");
       } else {
         $("h1").hide();
-        $("h4").html("Please wait: the Social Bookworm is burrowing through your friends' bookshelves.");
+        $(".description").html("Please wait: the Social Bookworm is burrowing through your friends' bookshelves.");
         $("#warnings").hide();
         $("#user-input").hide();  
         var spinner = new Spinner(opts).spin(document.getElementById('spinner'));
@@ -38,7 +54,7 @@
    });
 
     function changeText(image, friend, title, date, link, venue, city, address) {
-        $("h4").html("Your results:");
+        $(".description").html("Your results:");
         var changeable = $(".display")[0];
         var myText = "<img class='avatar' src='" + image + "'> Your friend <b>" + friend + "</b> might be interested in attending: <h4 class='event-title'><a href = '" + link + "'>" + title + "</a></h4><h5>" + date + "</h5>" + "<p>" + venue + "<br>" + address + "<br>" + city + "</p>";
         $(changeable).append("<div class='result'>" + myText + "</div>");

@@ -8,6 +8,7 @@ import urlparse
 from xml.dom.minidom import parseString
 import math
 from time import gmtime, strftime
+import datetime
 
 app = Flask(__name__)
 app.secret_key = os.environ['secret_key']
@@ -33,12 +34,9 @@ def index():
 def request_oauth():
 	client = setup_oauth()
 	#Get a request token which will later be paired with the user token.
-	print "request token url", REQUEST_TOKEN_URL
 	response, content = client.request(REQUEST_TOKEN_URL, 'GET')
-	print "content", content
     #Fetch the token and parse it. 
 	request_token = dict(urlparse.parse_qsl(content)) #this is coming up empty.
-	print "request_token", request_token
 	session['request_token'] = request_token['oauth_token']
 	session['request_token_secret'] = request_token['oauth_token_secret']
 	#Create a Goodreads link containing the request token.
@@ -70,10 +68,8 @@ def get_preliminary_goodreads_data():
 	                                   'GET')
 	if response['status'] != '200':
 		return render_template("error.html")
-	    # raise Exception('Did not work')
-	else:
-	    print "Got the info!" 
 	print "After first API call", strftime("%Y-%m-%d %H:%M:%S", gmtime())
+
 	user = str(parseString(content).getElementsByTagName("GoodreadsResponse")[0].childNodes[3].getAttribute("id"))
 	user_name = str(parseString(content).getElementsByTagName("name")[0].firstChild.nodeValue)
 	print "After parsing", strftime("%Y-%m-%d %H:%M:%S", gmtime())
@@ -90,9 +86,9 @@ def goodreads(zip):
 	token = oauth.Token(access, secret)
 	user = session['user']
 	friends = session['friends']
+	print "about to run friends_shelves"
 	session['friends_authors'] = get_friends_shelves(token, session['friends'])  #returns total friends authors
 	events = get_events(token, zip, session['friends_authors'], friends)
-	print events
 	return events
 
 def setup_oauth(token=None):
@@ -117,10 +113,10 @@ def get_friends_info(oauth_token, user):
 	                                   'GET')
 	if response['status'] != '200':
 	    return render_template("error.html")
+	print content
 	friend_list = parseString(content).getElementsByTagName("user")
 	for i in range(friend_list.length):
 		name = (friend_list[i].getElementsByTagName("name")[0].firstChild.nodeValue).encode('utf8')
-		print name
 		friend_id = int(friend_list[i].getElementsByTagName("id")[0].firstChild.nodeValue)
 		image = (friend_list[i].getElementsByTagName("small_image_url")[0].firstChild.nodeValue).encode('utf8')
 		i = {"name":name, "friend_id":friend_id, "image": image}
@@ -130,9 +126,13 @@ def get_friends_info(oauth_token, user):
 def get_friends_shelves(oauth_token, friends):
 	total_friends_authors = []
 	client = setup_oauth(token = oauth_token)
+	num_friends = len(session['friends'])
+	num_books = int(600/num_friends)
+	if num_books > 200:
+		num_books = 200
 	for friend in friends:  
 		friend_id = friend["friend_id"]
-		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=150' % (friend_id, API_KEY),
+		response, content = client.request('http://www.goodreads.com/review/list/%i.xml?%s&v=2&sort=date_added&per_page=%i' % (friend_id, API_KEY, num_books),
 		                                   'GET')
 		author_set = []
 		#If it's not necessary to page through the user's shelves, then just add all the authors on this page.
@@ -140,7 +140,6 @@ def get_friends_shelves(oauth_token, friends):
 		for i in range(len(authors)): 
 			author_id = authors[i].getElementsByTagName("id")[0].firstChild.nodeValue
 			author_set.append(author_id)
-		print author_set
 		total_friends_authors.append(author_set)
 	return total_friends_authors
 

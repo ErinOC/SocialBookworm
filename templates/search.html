@@ -31,11 +31,10 @@
         <div class="col-md-10 .col-xs-12 col-md-offset-1">
             <div class="content clearfix">
               <div class="top-margin">
-                <h1>Welcome, {{ name }}! </h1>
-                <h3>Search for events near you:</h3>
+                <h1 id="title">Welcome, {{ name }}! </h1>
+                <h4 class="description">Search for events near you:</h4>
                 <form id="user-input">
-                  <label>Enter your zip code:</label>
-                  <input type="text" id="zipcode"> 
+                  <input type="text" id="zipcode" placeholder="Enter your zipcode"> 
                   <button id="go">Search</button>
                 </form> 
                 <div id="warnings"></div>
