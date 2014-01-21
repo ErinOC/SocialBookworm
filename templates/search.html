@@ -1,5 +1,6 @@
-<html>
+<!DOCTYPE html>
 <head>
+<meta charset="utf-8">
 <!--     Bootstrap for responsive grid -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename='js/bootstrap.min.css') }}"media="screen">
@@ -7,7 +8,6 @@
   
 <!-- Jquery, Spinner, search functionality, and overrides -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type= "text/javascript" src="{{ url_for('static', filename='js/spin.min.js') }}"></script>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" media="screen">
     <title>The Social Bookworm</title>
 </head>
@@ -51,7 +51,9 @@
             <div class="footer">
                 Developed by <a href= "mailto:erin_oconnell@outlook.com">Erin O'Connell.</a>&nbsp; &nbsp; Powered by (but unffiliated with) <a href="http://www.goodreads.com">Goodreads.</a>
             </div>
+        </div>
     </div>
-</div>
-<script type= "text/javascript" src="{{ url_for('static', filename='js/bookworm.js') }}"></script>
+    <script type= "text/javascript" src="{{ url_for('static', filename='js/bookworm.js') }}"></script>
+    <script type= "text/javascript" src="{{ url_for('static', filename='js/spin.min.js') }}"></script>
+</body>
 </html>
