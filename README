@@ -1,0 +1,5 @@
+The Social Bookworm can be found at thesocialbookworm.herokuapp.com
+
+The Social Bookworm is an app that lets Goodreads users check if there are events in their area that their Goodreads friends are likely to be interested in attending. The user grants access to their Goodreads data through Oauth. The app then fetches author IDs in a Goodreads user's friends' shelves, and compares them to author IDs associated with literary events near a given zip code.
+
+This was a learning project that I made to start working with APIs and AJAX.
